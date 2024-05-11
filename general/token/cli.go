@@ -3,6 +3,8 @@ package token
 import (
 	"errors"
 	"fmt"
+	"strconv"
+
 	commonCliUtils "github.com/jfrog/jfrog-cli-core/v2/common/cliutils"
 	"github.com/jfrog/jfrog-cli-core/v2/common/commands"
 	generic "github.com/jfrog/jfrog-cli-core/v2/general/token"
@@ -13,7 +15,6 @@ import (
 	"github.com/jfrog/jfrog-client-go/utils/errorutils"
 	"github.com/jfrog/jfrog-client-go/utils/log"
 	"github.com/urfave/cli"
-	"strconv"
 )
 
 func AccessTokenCreateCmd(c *cli.Context) error {
@@ -26,9 +27,10 @@ func AccessTokenCreateCmd(c *cli.Context) error {
 		return err
 	}
 
-	if err = assertAccessTokenAvailable(serverDetails); err != nil {
+	//Enable basic auth for access-token generation
+	/*if err = assertAccessTokenAvailable(serverDetails); err != nil {
 		return err
-	}
+	}*/
 
 	if err = assertScopeOptions(c); err != nil {
 		return err
