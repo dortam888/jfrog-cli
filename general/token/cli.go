@@ -27,10 +27,9 @@ func AccessTokenCreateCmd(c *cli.Context) error {
 		return err
 	}
 
-	//Enable basic auth for access-token generation
-	/*if err = assertAccessTokenAvailable(serverDetails); err != nil {
+	if err = assertAccessTokenAvailable(serverDetails); err != nil {
 		return err
-	}*/
+	}
 
 	if err = assertScopeOptions(c); err != nil {
 		return err
@@ -108,8 +107,8 @@ func assertScopeOptions(c *cli.Context) error {
 }
 
 func assertAccessTokenAvailable(serverDetails *coreConfig.ServerDetails) error {
-	if serverDetails.AccessToken == "" {
-		return errorutils.CheckErrorf("authenticating with access token is currently mandatory for creating access tokens")
+	if serverDetails.BasicAuthForAccess {
+		return errorutils.CheckErrorf("Basic authentication flag is not on, Enable Token Generation via API and config the CLI again in order to use it")
 	}
 	return nil
 }
